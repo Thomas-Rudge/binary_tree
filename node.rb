@@ -2,11 +2,11 @@ class Node
 
   attr_reader :left, :right, :value, :parent
 
-  def initialize(*args)
-    @value  = args.empty?     ? nil : args[0]
-    @left   = args.length < 2 ? nil : args[1]
-    @right  = args.length < 3 ? nil : args[2]
-    @parent = args.length < 4 ? nil : args[3]
+  def initialize(*args, parent:nil, left:nil, right:nil)
+    @value  = args.empty? ? nil : args[0]
+    @parent = parent
+    @left   = left
+    @right  = right
   end
   # Custom getter setters
   def left=(l_node)
@@ -32,7 +32,7 @@ class Node
   end
 
   def parent=(val)
-    check_is_node
+    check_is_node(val)
 
     @parent = val
   end
@@ -50,7 +50,7 @@ class Node
   def check_node_balance(pivot, val)
     case pivot
     when 0 then raise ArgumentError, "left must be less than node's value", caller if val > @value
-    when 1 then raise ArgumentError, "right must be greater than node value", caller if val > @value
+    when 1 then raise ArgumentError, "right must be greater than node value", caller if val < @value
     when 2
       if (!@left.nil?  && !@left.value.nil?  && @left.value  > val) ||
          (!@right.nil? && !@right.value.nil? && @right.value < val)
