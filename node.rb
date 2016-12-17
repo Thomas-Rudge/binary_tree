@@ -11,16 +11,22 @@ class Node
   # Custom getter setters
   def left=(l_node)
     check_self_value
-    check_is_node(l_node)
-    check_node_balance(0, l_node.value)
+
+    unless l_node.nil?
+      check_is_node(l_node)
+      check_node_balance(0, l_node.value)
+    end
 
     @left = l_node
   end
 
   def right=(r_node)
     check_self_value
-    check_is_node(r_node)
-    check_node_balance(1, r_node.value)
+
+    unless r_node.nil?
+      check_is_node(r_node)
+      check_node_balance(1, r_node.value)
+    end
 
     @right = r_node
   end
@@ -32,7 +38,7 @@ class Node
   end
 
   def parent=(val)
-    check_is_node(val)
+    check_is_node(val) unless val.nil?
 
     @parent = val
   end
