@@ -1,6 +1,9 @@
 require_relative 'node.rb'
 
 class BinaryTree
+
+  attr_reader :root
+
   def initialize
     @root = Node.new
   end
@@ -58,6 +61,8 @@ class BinaryTree
         else
           node = node.right
         end
+      when value == node.value
+        break
       end
     end
   end
