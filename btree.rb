@@ -12,20 +12,40 @@ class BinaryTree
     list.each { |item| add_node(item) } ; nil
   end
 
-  def print_tree_sequence
-    # Level order traversal
-    # Preorder traversal
-    # Inorder traversal
-    # Postorder traversal
+  def search(item)
+    # Returns the node with the item value
+    found = -1
+    node  = @root
+
+    while true
+      case
+      when node.value == item
+        found = node
+        break
+      when item < node.value
+        node = node.left
+      when item > node.value
+        node = node.right
+      end
+
+      break if node.nil?
+    end
+
+    found
   end
 
-  def breadth_first_search(item)
-  end
+  def level_order_traversal
+    queue =  Array.new
+    queue << @root
 
-  def depth_first_search(item)
-  end
-
-  def depth_first_search_rec(item)
+    until queue.empty?
+      queue.length.times do
+        node  =  queue.shift
+        queue << node.left  unless node.left.nil?
+        queue << node.right unless node.right.nil?
+        puts node.value
+      end
+    end
   end
 
   def add_node(item)
@@ -54,5 +74,29 @@ class BinaryTree
         end
       end
     end
+  end
+
+  def preorder_traversal
+    traverse(0)
+  end
+
+  def inorder_traversal
+    traverse(1)
+  end
+
+  def postorder_traversal
+    traverse(2)
+  end
+
+  private
+
+  def traverse(*type, node:@root)
+    type = type[0]
+
+    puts node.value if type == 0
+    traverse(type, node:node.left)  unless node.left.nil?
+    puts node.value if type == 1
+    traverse(type, node:node.right) unless node.right.nil?
+    puts node.value if type == 2
   end
 end
