@@ -38,7 +38,7 @@ class BinaryTree
   end
 
   def add_node(value)
-    @root.value.nil? ? (@root.value = item; return) : nil
+    @root.value.nil? ? (@root.value = value; return) : nil
 
     new_node = Node.new(value)
     node     = @root
